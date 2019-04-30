@@ -11,6 +11,57 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [
+	'uses'=>'PostsController@index',
+	'as'=>'index'
+]);
+
+
+Route::get('/admin' , 'PostsController@adminIndex')->name('admin');
+
+
+Route::get('/post/{id}', [
+	'uses'=>'PostsController@show',
+	'as'=>'readmore'
+]);
+
+
+Route::get('/about', function () {
+    return view('others\about');
 });
+
+
+
+Route::get('/admin/create', function()
+{
+    return view('admin.create');
+
+})->name('admin.create');
+
+
+
+Route::resource('post', 'PostsController');
+
+
+Route::get('/delete/{id}', [
+	'uses'=>'PostsController@delete',
+	'as'=>'delete'
+]);
+
+
+Route::get('/edit/{id}', [
+	'uses'=>'PostsController@edit',
+	'as'=>'edit'
+]);
+
+
+
+Route::any('/update/{id}', [
+	'uses'=>'PostsController@update',
+	'as'=>'update'
+]);
+
+
+
+
+
